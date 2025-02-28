@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          type: ${spring.datasource.type}
+          driverClassName: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://120.26.42.17:3306/eyesApp2
+          username: qtcyy
+          password: 002844
+
+      hikari:
+        maxPoolSize: 20
+        minIdle: 10
+        connectionTimeout: 30000
+        validationTimeout: 5000
+        idleTimeout: 600000
+        maxLifetime: 1800000
+        connectionTestQuery: SELECT 1
+        keepaliveTime: 30000
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  application:
+    name: deekseek_backend
+
+sa-token:
+  sso-server:
+    ticket-timeout: 300
+    allow-url: "*"
+
+    is-http: true
+  sign:
+    secret-key: kQwIOrYvnXmSDkwEiFngrKidMcdrgKor
+  timeout: 86400
+
+  active-timeout: 43200
+  token-name: satoken
+  is-read-header: true
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+server:
+  port: 8081
