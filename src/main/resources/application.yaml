@@ -7,7 +7,7 @@ spring:
         master:
           type: ${spring.datasource.type}
           driverClassName: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://120.26.42.17:3306/eyesApp2
+          url: jdbc:mysql://120.26.42.17:3306/deepseek
           username: qtcyy
           password: 002844
 

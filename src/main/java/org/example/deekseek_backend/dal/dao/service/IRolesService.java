@@ -13,4 +13,5 @@ import org.example.deekseek_backend.dal.dao.entity.Roles;
  */
 public interface IRolesService extends IService<Roles> {
 
+    String getIdByName(String role);
 }
