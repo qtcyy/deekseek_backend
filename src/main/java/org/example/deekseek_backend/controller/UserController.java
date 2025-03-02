@@ -1,6 +1,8 @@
 package org.example.deekseek_backend.controller;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.annotation.SaIgnore;
+import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +31,6 @@ public class UserController {
     @SaIgnore
     @GetMapping("/user/register/checkUsername")
     public SaResult checkUsername(@RequestParam String username) {
-        System.out.println("checkUsername: " + username);
         return userService.checkUsername(username);
     }
 
@@ -49,5 +50,26 @@ public class UserController {
     @PostMapping("/user/login")
     public SaResult login(@Valid @RequestBody UserLoginRequest request) {
         return userService.login(request);
+    }
+
+    @SaCheckLogin
+    @GetMapping("/user/isLogin")
+    public SaResult isLogin() {
+        String id = StpUtil.getLoginIdAsString();
+        return SaResult.ok(id + " is login")
+                .set("id", id);
+    }
+
+    @SaCheckLogin
+    @GetMapping("/user/getLoginUsername")
+    public SaResult getLoginUsername() {
+        return userService.getLoginUsername();
+    }
+
+    @SaCheckLogin
+    @GetMapping("/user/logout")
+    public SaResult logout() {
+        StpUtil.logout();
+        return SaResult.ok("success");
     }
 }

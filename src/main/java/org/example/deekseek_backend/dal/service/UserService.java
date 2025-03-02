@@ -24,4 +24,7 @@ public interface UserService {
 
     @Transactional(readOnly = true)
     SaResult login(UserLoginRequest request);
+
+    @Transactional(readOnly = true)
+    SaResult getLoginUsername();
 }

@@ -4,7 +4,10 @@ import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.example.deekseek_backend.dal.dao.entity.UserRole;
 import org.example.deekseek_backend.dal.dao.entity.Users;
+import org.example.deekseek_backend.dal.dao.service.IRolesService;
+import org.example.deekseek_backend.dal.dao.service.IUserRoleService;
 import org.example.deekseek_backend.dal.dao.service.IUsersService;
 import org.example.deekseek_backend.dal.service.UserService;
 import org.example.deekseek_backend.dal.vo.request.user.UserLoginRequest;
@@ -25,6 +28,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private IUsersService usersService;
     @Autowired
+    private IUserRoleService userRoleService;
+    @Autowired
+    private IRolesService rolesService;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public boolean verifyPassword(String rawPassword, String encodedPassword) {
@@ -38,8 +45,16 @@ public class UserServiceImpl implements UserService {
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
             usersService.save(user);
+            String userId = user.getId();
+            String roleId = rolesService.getIdByName("user");
+            UserRole userRole = new UserRole();
+            userRole.setUserId(userId);
+            userRole.setRoleId(roleId);
+            userRoleService.save(userRole);
 
-            return SaResult.ok("success");
+            StpUtil.login(userId);
+            return SaResult.ok("success")
+                    .set("token", StpUtil.getTokenValue());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -110,5 +125,15 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public SaResult getLoginUsername() {
+        String id = StpUtil.getLoginIdAsString();
+        Users users = usersService.getById(id);
+
+        return SaResult.ok("success")
+                .set("username", users.getUsername());
     }
 }

@@ -40,7 +40,7 @@ public class SaTokenConfig implements WebMvcConfigurer {
     @Bean
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()
-                .addInclude("/**").addExclude("/login", "/register", "/proxy/**")
+                .addInclude("/**").addExclude("/login", "/register", "/proxy/**", "/api/user/**")
                 .setAuth(obj -> {
                     // 在这里可以添加自定义的认证逻辑
                     String token = SaHolder.getRequest().getHeader("satoken");
