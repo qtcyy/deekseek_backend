@@ -1,12 +1,11 @@
 package org.example.deekseek_backend.dal.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.io.Serializable;
-
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.io.Serializable;
 
 /**
  * <p>
@@ -26,10 +25,16 @@ public class ChatHistory extends BaseEntity implements Serializable {
 
     private String userId;
 
+    private String name;
+
+    private String content;
+
     @Override
     public String toString() {
         return "ChatHistory{" +
                 ", userId = " + userId +
+                ", name = " + name +
+                ", content = " + content +
                 "}";
     }
 }
