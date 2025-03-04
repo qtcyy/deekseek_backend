@@ -107,7 +107,8 @@ public class UserServiceImpl implements UserService {
     public SaResult login(UserLoginRequest request) {
         try {
             if (StpUtil.isLogin()) {
-                return SaResult.ok("success");
+                return SaResult.ok("success")
+                        .set("token", StpUtil.getTokenValue());
             }
             String mergedInfo = request.getMergedName();
             Users users = usersService.getUsersByInfo(mergedInfo);

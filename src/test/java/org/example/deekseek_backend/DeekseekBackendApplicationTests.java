@@ -1,16 +1,9 @@
 package org.example.deekseek_backend;
 
-import org.example.deekseek_backend.dal.dao.entity.Permissions;
-import org.example.deekseek_backend.dal.dao.entity.RolePermission;
-import org.example.deekseek_backend.dal.dao.entity.Roles;
 import org.example.deekseek_backend.dal.dao.service.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 @SpringBootTest
 class DeekseekBackendApplicationTests {
@@ -28,7 +21,7 @@ class DeekseekBackendApplicationTests {
     @Test
     void contextLoads() {
     }
-
+/*
     @Test
     void insertRoles() {
         List<String> roleList = new ArrayList<>(Arrays.asList("root", "user", "admin"));
@@ -75,5 +68,5 @@ class DeekseekBackendApplicationTests {
         });
         rolePermissionService.saveBatch(entities);
     }
-
+*/
 }
